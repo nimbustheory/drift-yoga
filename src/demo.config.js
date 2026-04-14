@@ -20,7 +20,7 @@ export const DEMO_CONFIG = {
     {
       title: "Admin Dashboard",
       description: "Real-time analytics for your Olson Kundig-designed SLU studio. Track attendance across DRIFT 45 and DRIFT 60 classes, monitor revenue from yoga, juice bar, and retail. Manage your 'reserve your mat' system, teacher roster, and broadcast updates from one place.",
-      icon: "LayoutDashboard",
+      icon: "Shield",
     },
     {
       title: "Built for DRIFT Yoga",
