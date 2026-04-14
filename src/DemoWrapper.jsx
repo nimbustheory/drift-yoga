@@ -18,7 +18,7 @@ export default function DemoWrapper() {
   if (isAdminMode) {
     return (
       <div style={{ width: "100vw", height: "100vh", fontFamily: "'Nunito Sans', system-ui, sans-serif" }}>
-        <App onAdminChange={setIsAdminMode} />
+        <App onAdminChange={setIsAdminMode} initialAdmin={true} />
         <style>{`
           * { scrollbar-width: none; }
           *::-webkit-scrollbar { display: none; }

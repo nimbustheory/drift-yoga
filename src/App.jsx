@@ -1066,9 +1066,9 @@ function NotificationsModal({ onClose }) {
 // ═══════════════════════════════════════════════════════════════
 //  MAIN APP
 // ═══════════════════════════════════════════════════════════════
-export default function App({ onAdminChange }) {
-  const [page, setPage] = useState("home");
-  const [isAdmin, setIsAdmin] = useState(false);
+export default function App({ onAdminChange, initialAdmin = false }) {
+  const [page, setPage] = useState(initialAdmin ? "admin-dashboard" : "home");
+  const [isAdmin, setIsAdmin] = useState(initialAdmin);
   const [showMore, setShowMore] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -1143,7 +1143,7 @@ export default function App({ onAdminChange }) {
     return (
       <AppContext.Provider value={{ page, setPage, classRegistrations, registerForClass, openReservation, feedCelebrations, celebrateFeed }}>
         <div style={{ display: "flex", height: "100%", fontFamily: "'Nunito Sans', system-ui, sans-serif", background: A.bg }}>
-          <aside style={{ width: 220, background: A.sidebar, borderRight: `1px solid ${A.sidebarBorder}`, color: A.text, display: "flex", flexDirection: "column", flexShrink: 0 }}>
+          <aside style={{ width: 240, background: A.sidebar, borderRight: `1px solid ${A.sidebarBorder}`, color: A.text, display: "flex", flexDirection: "column", flexShrink: 0 }}>
             <div style={{ padding: "16px 14px", borderBottom: `1px solid ${A.sidebarBorder}` }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <div style={{ width: 32, height: 32, borderRadius: 8, background: T.accent, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Crimson Pro', serif", fontSize: 14, color: "#fff", fontWeight: 700 }}>{STUDIO_CONFIG.logoMark}</div>
@@ -1168,23 +1168,36 @@ export default function App({ onAdminChange }) {
 
   return (
     <AppContext.Provider value={{ page, setPage, classRegistrations, registerForClass, openReservation, feedCelebrations, celebrateFeed }}>
-      <div style={{ display: "flex", flexDirection: "column", height: "100%", background: T.bgDim, fontFamily: "'Nunito Sans', system-ui, sans-serif", position: "relative" }}>
-        <header style={{ flexShrink: 0, background: T.bg, color: "#fff", padding: "10px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", zIndex: 30 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 34, height: 34, borderRadius: 8, background: T.accent, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Crimson Pro', serif", fontSize: 14, color: "#fff", fontWeight: 700 }}>{STUDIO_CONFIG.logoMark}</div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <span style={{ fontFamily: "'Crimson Pro', serif", fontSize: 18, lineHeight: 1, fontWeight: 600 }}>{STUDIO_CONFIG.name}</span>
-              <span style={{ fontSize: 8, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.15em" }}>{STUDIO_CONFIG.subtitle}</span>
-            </div>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <button onClick={() => { setIsAdmin(true); setPage("admin-dashboard"); }} style={{ padding: 8, borderRadius: 8, border: "none", background: "transparent", cursor: "pointer", color: T.accent }}><Shield size={20} /></button>
-            <button onClick={() => setShowNotifications(true)} style={{ padding: 8, borderRadius: 8, border: "none", background: "transparent", cursor: "pointer", color: "#fff", position: "relative" }}><Bell size={20} />{unreadCount > 0 && <span style={{ position: "absolute", top: 4, right: 4, width: 14, height: 14, borderRadius: "50%", background: T.accent, fontSize: 9, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>{unreadCount}</span>}</button>
-            <button onClick={() => setShowSettings(true)} style={{ padding: 8, borderRadius: 8, border: "none", background: "transparent", cursor: "pointer", color: "#fff" }}><Settings size={20} /></button>
-          </div>
-        </header>
+      <div style={{ position: "relative", height: "100%", overflow: "hidden", background: T.bgDim, fontFamily: "'Nunito Sans', system-ui, sans-serif" }}>
 
-        <main ref={contentRef} style={{ flex: 1, overflowY: "auto", paddingBottom: 70 }}>{renderPage()}</main>
+        <div ref={contentRef} style={{ overflowY: "auto", height: "calc(100% - 64px)", scrollbarWidth: "none", WebkitOverflowScrolling: "touch" }}>
+          <header style={{ background: T.bg, color: "#fff", padding: "10px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 30 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ width: 34, height: 34, borderRadius: 8, background: T.accent, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Crimson Pro', serif", fontSize: 14, color: "#fff", fontWeight: 700 }}>{STUDIO_CONFIG.logoMark}</div>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <span style={{ fontFamily: "'Crimson Pro', serif", fontSize: 18, lineHeight: 1, fontWeight: 600 }}>{STUDIO_CONFIG.name}</span>
+                <span style={{ fontSize: 8, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.15em" }}>{STUDIO_CONFIG.subtitle}</span>
+              </div>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
+              <button onClick={() => { setIsAdmin(true); setPage("admin-dashboard"); }} style={{ padding: 8, borderRadius: 8, border: "none", background: "transparent", cursor: "pointer", color: T.accent }}><Shield size={20} /></button>
+              <button onClick={() => setShowNotifications(true)} style={{ padding: 8, borderRadius: 8, border: "none", background: "transparent", cursor: "pointer", color: "#fff", position: "relative" }}><Bell size={20} />{unreadCount > 0 && <span style={{ position: "absolute", top: 4, right: 4, width: 14, height: 14, borderRadius: "50%", background: T.accent, fontSize: 9, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>{unreadCount}</span>}</button>
+              <button onClick={() => setShowSettings(true)} style={{ padding: 8, borderRadius: 8, border: "none", background: "transparent", cursor: "pointer", color: "#fff" }}><Settings size={20} /></button>
+            </div>
+          </header>
+          {renderPage()}
+        </div>
+
+        <nav style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 64, background: T.bgCard, borderTop: `1px solid ${T.border}`, zIndex: 50, display: "flex", alignItems: "center", justifyContent: "space-around", padding: "0 4px" }}>
+          {mainTabs.map(tab => {
+            const active = tab.id === "more" ? (isMoreActive || showMore) : page === tab.id;
+            return (
+              <button key={tab.id} onClick={() => tab.id === "more" ? setShowMore(true) : setPage(tab.id)} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2, padding: "6px 12px", borderRadius: 10, border: "none", background: "transparent", cursor: "pointer", color: active ? T.accent : T.textFaint }}>
+                <tab.icon size={20} strokeWidth={active ? 2.5 : 2} /><span style={{ fontSize: 10, fontWeight: active ? 700 : 500 }}>{tab.label}</span>
+              </button>
+            );
+          })}
+        </nav>
 
         {showMore && (
           <div onClick={() => setShowMore(false)} style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,.5)", backdropFilter: "blur(4px)", zIndex: 40 }}>
@@ -1200,22 +1213,12 @@ export default function App({ onAdminChange }) {
           </div>
         )}
 
-        <nav style={{ flexShrink: 0, background: T.bgCard, borderTop: `1px solid ${T.border}`, zIndex: 30 }}>
-          <div style={{ display: "flex", justifyContent: "space-around", padding: "6px 4px 10px" }}>
-            {mainTabs.map(tab => {
-              const active = tab.id === "more" ? (isMoreActive || showMore) : page === tab.id;
-              return (
-                <button key={tab.id} onClick={() => tab.id === "more" ? setShowMore(true) : setPage(tab.id)} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2, padding: "6px 12px", borderRadius: 10, border: "none", background: "transparent", cursor: "pointer", color: active ? T.accent : T.textFaint }}>
-                  <tab.icon size={20} strokeWidth={active ? 2.5 : 2} /><span style={{ fontSize: 10, fontWeight: active ? 700 : 500 }}>{tab.label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </nav>
-
         {showSettings && <SettingsModal onClose={() => setShowSettings(false)} />}
         {showNotifications && <NotificationsModal onClose={() => setShowNotifications(false)} />}
         {reservationClass && <ReservationModal classData={reservationClass} onConfirm={registerForClass} onClose={() => setReservationClass(null)} />}
+        <style>{`
+          *::-webkit-scrollbar { display: none; }
+        `}</style>
       </div>
     </AppContext.Provider>
   );
