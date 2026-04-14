@@ -49,12 +49,12 @@ const SQ = "https://images.squarespace-cdn.com/content/v1/5e6e92382af6d508e3489c
 const STUDIO_IMAGES = {
   home: SQ + "1da459d2-664c-475b-8e96-e4c5a9c3e725/19054_00_N14_high300.jpg?format=1500w",
   classes: SQ + "44955694-2273-40d3-8b46-9fb46e3caf26/010-DRIFT-STUDIO6281.jpg?format=1500w",
-  schedule: SQ + "1726807684267-7ZBCCJ70X5KD27KZZY3J/DriftYoga_092024-466.jpg?format=1500w",
+  schedule: SQ + "988b0172-3ffe-4897-b654-565ccb07691c/19054_00_N12_high300.jpg?format=1500w",
   practice: SQ + "b4f2eef7-2281-4736-a6ac-6e6a448ad1b6/hand+on+heart+facing+.jpg?format=1500w",
   community: SQ + "1726807764343-XL7UEZNP6AHBZBWT61JK/DriftYoga_092024-430.jpg?format=1500w",
   teachers: SQ + "1724123790486-TXL0DQF6N0BLPXSLAHYA/DRIFT2024-6656-Edit.jpg?format=1500w",
   events: SQ + "1726424625804-OFPSNWAYQ4DGROSOSN1T/DriftYoga_082024-411.jpg?format=1500w",
-  membership: SQ + "988b0172-3ffe-4897-b654-565ccb07691c/19054_00_N12_high300.jpg?format=1500w",
+  membership: SQ + "1726807684267-7ZBCCJ70X5KD27KZZY3J/DriftYoga_092024-466.jpg?format=1500w",
 };
 
 const GRADIENTS = {
@@ -221,19 +221,19 @@ const ADMIN_CHARTS = {
 
 const AppContext = createContext(null);
 
-function PageHero({ image, title, subtitle, fallbackGradient }) {
+function PageHero({ image, title, subtitle, fallbackGradient, titleSize, subtitleWidth }) {
   const [imgFailed, setImgFailed] = useState(false);
   const isUrl = image && image.startsWith("http");
   const useImage = isUrl && !imgFailed;
   const bgFallback = fallbackGradient || `linear-gradient(135deg, hsl(40,45%,30%) 0%, hsl(35,18%,14%) 100%)`;
   return (
-    <div style={{ position: "relative", minHeight: 240, overflow: "hidden", marginBottom: 16 }}>
-      {useImage && <img src={image} alt="" onError={() => setImgFailed(true)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.7)" }} loading="lazy" />}
+    <div style={{ position: "relative", minHeight: 240, overflow: "hidden", marginBottom: 20 }}>
+      {useImage && <img src={image} alt="" onError={() => setImgFailed(true)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.82)" }} loading="lazy" />}
       {!useImage && <div style={{ position: "absolute", inset: 0, background: bgFallback }} />}
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,.45) 0%, rgba(0,0,0,.05) 50%, rgba(0,0,0,.15) 100%)" }} />
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,.32) 0%, rgba(0,0,0,.03) 50%, rgba(0,0,0,.10) 100%)" }} />
       <div style={{ position: "relative", padding: "80px 20px 24px", display: "flex", flexDirection: "column", justifyContent: "flex-end", minHeight: 240 }}>
-        <h1 style={{ fontFamily: "'Crimson Pro', serif", fontSize: 34, fontWeight: 600, color: "#fff", margin: 0, lineHeight: 1.1 }}>{title}</h1>
-        {subtitle && <p style={{ fontSize: 13, color: "rgba(255,255,255,.75)", margin: "6px 0 0", maxWidth: 280 }}>{subtitle}</p>}
+        <h1 style={{ fontFamily: "'Crimson Pro', serif", fontSize: titleSize || 34, fontWeight: 600, color: "#fff", margin: 0, lineHeight: 1.1 }}>{title}</h1>
+        {subtitle && <p style={{ fontSize: 13, color: "rgba(255,255,255,.85)", margin: "6px 0 0", maxWidth: subtitleWidth || 340 }}>{subtitle}</p>}
       </div>
     </div>
   );
@@ -366,9 +366,9 @@ function HomePage() {
 
   return (
     <div>
-      <PageHero image={STUDIO_IMAGES.home} fallbackGradient={GRADIENTS.home} title={<>{STUDIO_CONFIG.heroLine1}<br/><span style={{ color: T.accent, fontStyle: "italic" }}>{STUDIO_CONFIG.heroLine2}</span></>} subtitle={STUDIO_CONFIG.description} />
+      <PageHero image={STUDIO_IMAGES.home} fallbackGradient={GRADIENTS.home} titleSize={64} subtitleWidth={360} title={<>{STUDIO_CONFIG.heroLine1}<br/><span style={{ color: T.accent, fontStyle: "italic" }}>{STUDIO_CONFIG.heroLine2}</span></>} subtitle={STUDIO_CONFIG.description} />
 
-      <section style={{ padding: "0 16px", marginTop: -16, position: "relative", zIndex: 10 }}>
+      <section style={{ padding: "0 16px", position: "relative", zIndex: 10 }}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8 }}>
           {[
             { icon: Calendar, label: "Reserve", page: "schedule", color: T.accent },
