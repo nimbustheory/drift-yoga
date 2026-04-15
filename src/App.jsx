@@ -50,11 +50,11 @@ const STUDIO_IMAGES = {
   home: SQ + "1da459d2-664c-475b-8e96-e4c5a9c3e725/19054_00_N14_high300.jpg?format=1500w",
   classes: SQ + "44955694-2273-40d3-8b46-9fb46e3caf26/010-DRIFT-STUDIO6281.jpg?format=1500w",
   schedule: SQ + "988b0172-3ffe-4897-b654-565ccb07691c/19054_00_N12_high300.jpg?format=1500w",
-  practice: SQ + "b4f2eef7-2281-4736-a6ac-6e6a448ad1b6/hand+on+heart+facing+.jpg?format=1500w",
-  community: SQ + "1726807764343-XL7UEZNP6AHBZBWT61JK/DriftYoga_092024-430.jpg?format=1500w",
-  teachers: SQ + "1724123790486-TXL0DQF6N0BLPXSLAHYA/DRIFT2024-6656-Edit.jpg?format=1500w",
-  events: SQ + "1726424625804-OFPSNWAYQ4DGROSOSN1T/DriftYoga_082024-411.jpg?format=1500w",
-  membership: SQ + "1726807684267-7ZBCCJ70X5KD27KZZY3J/DriftYoga_092024-466.jpg?format=1500w",
+  practice: null,
+  community: null,
+  teachers: SQ + "1596989782793-L2WGBZ70O52S8YU5Z4OV/4CBAA224-9EA5-4716-8E8F-4403246C0A29.jpg?format=1500w",
+  events: null,
+  membership: SQ + "1596738935962-8RZ0QQ15K54GJCOFFVOT/D1C009D1-FFF7-4F8D-81DC-76871841C92B_1_201_a.jpeg?format=1500w",
 };
 
 const GRADIENTS = {
